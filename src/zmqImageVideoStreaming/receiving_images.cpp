@@ -1,4 +1,5 @@
-//  This program acts as client to receive images through zmq and OPencv
+// This program acts as client to receive images through zmq and Opencv
+// To work as a different process at all times in the flask or django app. 
 #include <zmq.hpp>
 #include <cstdio>
 #include <string>
@@ -12,7 +13,7 @@
 // Main Function starts
 int main(int argc, char **argv)
 {
-    //Have to do with some showFrames Variable
+    //Have to do with some showFrames Variable and argv
 
 
     //Initialize zmq socket
@@ -42,7 +43,12 @@ int main(int argc, char **argv)
         
         // Store the image into an image that is number_Rows X number_Columns X channels
         vector<int> availableDimensions = {3280 ,2464};  //For Noir Camera version2
+        
+        //cv::Mat can be used to make a n dimensional aXb matrix.
         cv::Mat image(availableDimensions[0], availableDimensions[1], CV_8UC3, reply.data());
+        //here CV_8U(3) makes a 8Bit matrix with the rows and columns as availableDimensions[0] 
+        //and availableDimensions[1] and (3) makes it a 3-Channel for bgr output.  
+
 
 
         //Displaying the resulting Image
